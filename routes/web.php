@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PegawaiAjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::get('/', function () {
 Route::get('/pegawai', function () {
     return view('pegawai.index');
 });
+
+Route::resource('pegawaiAjax',PegawaiAjaxController::class);
