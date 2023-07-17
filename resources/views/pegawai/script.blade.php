@@ -27,16 +27,37 @@
             }]
         });
     });
+    // GLOBAL SETUP
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    // 02_PROSES SIMPAN
     $('body').on('click', '.btnTambah', function(e) {
         e.preventDefault();
         $('#exampleModal').modal('show');
 
         $('.btnSimpan').click(function(e) {
             e.preventDefault();
-            var nama = $('#nama').val();
-            var email = $('#email').val();
-            console.log(nama + ' - ' + email);
+            // var nama = $('#nama').val();
+            // var email = $('#email').val();
+            // console.log(nama + ' - ' + email);
+            $.ajax({
+                type: "POST",
+                url: "pegawaiAjax",
+                data: {
+                    nama: $('#nama').val(),
+                    email: $('#email').val()
+                },
+                // dataType: "dataType",
+                success: function(response) {
+                    // console.log(response);
+                    $('#myTable').DataTable().ajax.reload();
+                }
+
+            });
         });
     });
 </script>
