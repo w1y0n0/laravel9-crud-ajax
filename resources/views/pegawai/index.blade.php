@@ -79,6 +79,9 @@
                 }, {
                     data: 'email',
                     name: 'Email'
+                }, {
+                    data: 'aksi',
+                    name: 'Aksi'
                 }]
             });
         });

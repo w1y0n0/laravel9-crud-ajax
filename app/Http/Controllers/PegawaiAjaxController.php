@@ -18,6 +18,9 @@ class PegawaiAjaxController extends Controller
         $data = Pegawai::orderBy('nama', 'asc');
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('aksi', function ($data) {
+                return view('pegawai.tombol')->with('data', $data);
+            })
             ->make(true);
     }
 
