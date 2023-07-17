@@ -69,6 +69,11 @@
                 serverside: true,
                 ajax: "{{ url('pegawaiAjax') }}",
                 columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                }, {
                     data: 'nama',
                     name: 'Nama'
                 }, {
