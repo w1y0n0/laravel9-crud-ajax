@@ -7,7 +7,7 @@
     <title>Data Pegawai</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 
 <body class="bg-light">
@@ -51,17 +51,6 @@
                         <th class="col-md-2">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Anton</td>
-                        <td>anton@gmail.com</td>
-                        <td>
-                            <a href='' class="btn btn-warning btn-sm">Edit</a>
-                            <a href='' class="btn btn-danger btn-sm">Del</a>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
 
         </div>
@@ -72,9 +61,22 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
-        let table = new DataTable('#myTable');
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                processing: true,
+                serverside: true,
+                ajax: "{{ url('pegawaiAjax') }}",
+                columns: [{
+                    data: 'nama',
+                    name: 'Nama'
+                }, {
+                    data: 'email',
+                    name: 'Email'
+                }]
+            });
+        });
     </script>
 </body>
 

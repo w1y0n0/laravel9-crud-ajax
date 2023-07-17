@@ -15,7 +15,8 @@ class PegawaiAjaxController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pegawai::orderBy('nama', 'asc');
+        return DataTables::of($data)->make(true);
     }
 
     /**
