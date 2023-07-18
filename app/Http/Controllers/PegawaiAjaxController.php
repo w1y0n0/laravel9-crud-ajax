@@ -84,7 +84,9 @@ class PegawaiAjaxController extends Controller
      */
     public function edit($id)
     {
-        //
+        // return 'JOSS';
+        $data = Pegawai::where('id', $id)->first();
+        return response()->json(['result' => $data]);
     }
 
     /**

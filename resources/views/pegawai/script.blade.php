@@ -72,6 +72,24 @@
             });
         });
     });
+    // END 02_PROSES SIMPAN
+
+    // 03_PROSES EDIT
+    $('body').on('click', '.btnEdit', function(e) {
+        let id = $(this).data('id');
+        // alert('id isi ' + id);
+        $.ajax({
+            type: "GET",
+            url: "pegawaiAjax/" + id + "/edit",
+            success: function(response) {
+                $('#exampleModal').modal('show');
+                $('#nama').val(response.result.nama);
+                $('#email').val(response.result.email);
+                console.log(response.result);
+            }
+        });
+    });
+    // END 03_PROSES EDIT
 
     // Hidden Modal
     $('#exampleModal').on('hidden.bs.modal', function() {
