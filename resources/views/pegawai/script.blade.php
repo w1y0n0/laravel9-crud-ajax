@@ -40,7 +40,7 @@
         $('#exampleModal').modal('show');
 
         $('.btnSimpan').click(function(e) {
-            e.preventDefault();
+            // e.preventDefault();
             // var nama = $('#nama').val();
             // var email = $('#email').val();
             // console.log(nama + ' - ' + email);
@@ -53,7 +53,19 @@
                 },
                 // dataType: "dataType",
                 success: function(response) {
-                    // console.log(response);
+                    if (response.errors) {
+                        console.log(response.errors);
+                        $('.alert-danger').removeClass('d-none');
+                        $('.alert-danger').append("<ul>");
+                        $.each(response.errors, function(key, value) {
+                            $('.alert-danger').find('ul').append("<li>" + value +
+                                "</li>");
+                        });
+                        $('.alert-danger').append("</ul>");
+                    } else {
+                        $('.alert-success').removeClass('d-none');
+                        $('.alert-success').html(response.success);
+                    }
                     $('#myTable').DataTable().ajax.reload();
                 }
 

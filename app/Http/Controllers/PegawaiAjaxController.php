@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class PegawaiAjaxController extends Controller
@@ -43,11 +44,25 @@ class PegawaiAjaxController extends Controller
     public function store(Request $request)
     {
         // return 'JOSS';
-        $data = [
-            'nama' => $request->nama,
-            'email' => $request->email
-        ];
-        Pegawai::create($data);
+        $validasi = Validator::make($request->all(), [
+            'nama' => 'required',
+            'email' => 'required|email',
+        ], [
+            'nama.required' => 'Nama wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Format email tidak valid',
+        ]);
+
+        if ($validasi->fails()) {
+            return response()->json(['errors' => $validasi->errors()]);
+        } else {
+            $data = [
+                'nama' => $request->nama,
+                'email' => $request->email
+            ];
+            Pegawai::create($data);
+            return response()->json(['success' => "Berhasil simpan data."]);
+        }
     }
 
     /**
