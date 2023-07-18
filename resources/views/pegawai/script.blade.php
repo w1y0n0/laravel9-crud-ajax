@@ -69,6 +69,20 @@
     });
     // END 03_PROSES EDIT
 
+    // 04_PROSES DELETE
+    $('body').on('click', '.btnDel', function(e) {
+        // alert('DELETE');
+        if (confirm('Yakin mau hapus data ini ?') == true) {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "DELETE",
+                url: "pegawaiAjax/" + id,
+            });
+            $('#myTable').DataTable().ajax.reload();
+        }
+    });
+    // END 04_PROSES DELETE
+
     // Function SIMPAN dan UPDATE
     function simpan(id = '') {
         if (id == '') {
