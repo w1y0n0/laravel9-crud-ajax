@@ -72,4 +72,18 @@
             });
         });
     });
+
+    // Hidden Modal
+    $('#exampleModal').on('hidden.bs.modal', function() {
+        // alert('Close');
+        $('#nama').val('');
+        $('#email').val('');
+
+        $('.alert-danger').addClass('d-none');
+        $('.alert-danger').html('');
+
+        $('.alert-success').addClass('d-none');
+        $('.alert-success').html('');
+    });
+    // End Hidden Modal
 </script>
