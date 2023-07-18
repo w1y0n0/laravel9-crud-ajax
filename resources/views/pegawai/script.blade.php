@@ -39,37 +39,12 @@
         e.preventDefault();
         $('#exampleModal').modal('show');
 
-        $('.btnSimpan').click(function(e) {
+        $('.btnSimpan').click(function() {
             // e.preventDefault();
             // var nama = $('#nama').val();
             // var email = $('#email').val();
             // console.log(nama + ' - ' + email);
-            $.ajax({
-                type: "POST",
-                url: "pegawaiAjax",
-                data: {
-                    nama: $('#nama').val(),
-                    email: $('#email').val()
-                },
-                // dataType: "dataType",
-                success: function(response) {
-                    if (response.errors) {
-                        console.log(response.errors);
-                        $('.alert-danger').removeClass('d-none');
-                        $('.alert-danger').append("<ul>");
-                        $.each(response.errors, function(key, value) {
-                            $('.alert-danger').find('ul').append("<li>" + value +
-                                "</li>");
-                        });
-                        $('.alert-danger').append("</ul>");
-                    } else {
-                        $('.alert-success').removeClass('d-none');
-                        $('.alert-success').html(response.success);
-                    }
-                    $('#myTable').DataTable().ajax.reload();
-                }
-
-            });
+            simpan();
         });
     });
     // END 02_PROSES SIMPAN
@@ -86,10 +61,50 @@
                 $('#nama').val(response.result.nama);
                 $('#email').val(response.result.email);
                 console.log(response.result);
+                $('.btnSimpan').click(function() {
+                    simpan(id);
+                });
             }
         });
     });
     // END 03_PROSES EDIT
+
+    // Function SIMPAN dan UPDATE
+    function simpan(id = '') {
+        if (id == '') {
+            var var_url = 'pegawaiAjax';
+            var var_type = 'POST';
+        } else {
+            var var_url = 'pegawaiAjax/' + id;
+            var var_type = 'PUT';
+        }
+        $.ajax({
+            type: var_type,
+            url: var_url,
+            data: {
+                nama: $('#nama').val(),
+                email: $('#email').val()
+            },
+            success: function(response) {
+                if (response.errors) {
+                    console.log(response.errors);
+                    $('.alert-danger').removeClass('d-none');
+                    $('.alert-danger').append("<ul>");
+                    $.each(response.errors, function(key, value) {
+                        $('.alert-danger').find('ul').append("<li>" + value +
+                            "</li>");
+                    });
+                    $('.alert-danger').append("</ul>");
+                } else {
+                    $('.alert-success').removeClass('d-none');
+                    $('.alert-success').html(response.success);
+                }
+                $('#myTable').DataTable().ajax.reload();
+            }
+
+        });
+    }
+    // END Function SIMPAN dan UPDATE
 
     // Hidden Modal
     $('#exampleModal').on('hidden.bs.modal', function() {
